@@ -1,0 +1,170 @@
+[
+ {
+  "id": "munnar-tea-hills",
+  "destination": "Munnar",
+  "category": "Tea Plantations",
+  "alt": "Rolling tea plantation hills in Munnar, Kerala",
+  "objectPosition": "center"
+ },
+ {
+  "id": "munnar-hill-road",
+  "destination": "Munnar",
+  "category": "Scenic Roads",
+  "alt": "A winding hill road curving through Munnar tea country",
+  "objectPosition": "center"
+ },
+ {
+  "id": "munnar-tea-garden",
+  "destination": "Munnar",
+  "category": "Tea Plantations",
+  "alt": "Manicured tea garden rows shaded by tall trees",
+  "objectPosition": "center"
+ },
+ {
+  "id": "kerala-green-valley",
+  "destination": "Kerala",
+  "category": "Kerala Landscapes",
+  "alt": "Green Kerala valley under a wide open sky",
+  "objectPosition": "center"
+ },
+ {
+  "id": "vagamon-meadows",
+  "destination": "Vagamon",
+  "category": "Hills & Meadows",
+  "alt": "Soft rolling meadows above the clouds at Vagamon",
+  "objectPosition": "center"
+ },
+ {
+  "id": "vagamon-mist",
+  "destination": "Vagamon",
+  "category": "Hills & Meadows",
+  "alt": "Morning mist drifting across the Vagamon grasslands",
+  "objectPosition": "center"
+ },
+ {
+  "id": "wayanad-forest-lake",
+  "destination": "Wayanad",
+  "category": "Forests",
+  "alt": "Still forest lake framed by dense Wayanad greenery",
+  "objectPosition": "center"
+ },
+ {
+  "id": "wayanad-wildlife",
+  "destination": "Wayanad",
+  "category": "Jeep Safaris",
+  "alt": "Spotted deer in the forest undergrowth at Wayanad",
+  "objectPosition": "center"
+ },
+ {
+  "id": "wayanad-misty-trail",
+  "destination": "Wayanad",
+  "category": "Forests",
+  "alt": "Sunlight breaking through mist on a forest trail",
+  "objectPosition": "center"
+ },
+ {
+  "id": "coorg-waterfall",
+  "destination": "Coorg",
+  "category": "Waterfalls",
+  "alt": "A waterfall tumbling through lush Coorg forest",
+  "objectPosition": "center"
+ },
+ {
+  "id": "coorg-cascades",
+  "destination": "Coorg",
+  "category": "Waterfalls",
+  "alt": "Wide cascading falls over mossy rocks",
+  "objectPosition": "center"
+ },
+ {
+  "id": "ooty-mountain-road",
+  "destination": "Ooty",
+  "category": "Scenic Roads",
+  "alt": "Empty mountain road curving through green hills",
+  "objectPosition": "center"
+ },
+ {
+  "id": "ooty-tea-picker",
+  "destination": "Ooty",
+  "category": "Kerala Landscapes",
+  "alt": "A tea estate worker among the Nilgiri tea bushes",
+  "objectPosition": "center"
+ },
+ {
+  "id": "group-tea-trail",
+  "destination": "Munnar",
+  "category": "College Tours",
+  "alt": "A group walking a trail through the tea estates",
+  "objectPosition": "center"
+ },
+ {
+  "id": "goa-palms",
+  "destination": "Goa",
+  "category": "Beaches",
+  "alt": "Coconut palms against a warm evening sky in Goa",
+  "objectPosition": "center"
+ },
+ {
+  "id": "goa-beach-evening",
+  "destination": "Goa",
+  "category": "Beaches",
+  "alt": "Golden light over a palm-lined Goa beach",
+  "objectPosition": "center"
+ },
+ {
+  "id": "alleppey-houseboat",
+  "destination": "Alleppey",
+  "category": "Houseboats",
+  "alt": "A traditional houseboat on the Alleppey backwaters at dusk",
+  "objectPosition": "center"
+ },
+ {
+  "id": "alleppey-backwaters",
+  "destination": "Alleppey",
+  "category": "Houseboats",
+  "alt": "Palm-fringed backwater channel with moored houseboats",
+  "objectPosition": "center"
+ },
+ {
+  "id": "campfire-night",
+  "destination": "Munnar",
+  "category": "Campfire Evenings",
+  "alt": "Tents glowing around a campfire under night trees",
+  "objectPosition": "center"
+ },
+ {
+  "id": "friends-summit",
+  "destination": "Wayanad",
+  "category": "Friends Trips",
+  "alt": "A travel group gathered together at a mountain summit",
+  "objectPosition": "center"
+ },
+ {
+  "id": "jeep-trail",
+  "destination": "Wayanad",
+  "category": "Jeep Safaris",
+  "alt": "View over the bonnet of a jeep on a rough forest track",
+  "objectPosition": "center"
+ },
+ {
+  "id": "mountain-viewpoint",
+  "destination": "Vagamon",
+  "category": "Mountain Viewpoints",
+  "alt": "Layered blue mountain ridges fading into haze",
+  "objectPosition": "center"
+ },
+ {
+  "id": "resort-pool",
+  "destination": "Coorg",
+  "category": "Resorts",
+  "alt": "A calm resort pool looking out over the hills",
+  "objectPosition": "center"
+ },
+ {
+  "id": "group-bus",
+  "destination": "Kerala",
+  "category": "Bus Travel",
+  "alt": "A tour bus waiting on a tree-lined road",
+  "objectPosition": "center"
+ }
+]

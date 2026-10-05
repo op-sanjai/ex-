@@ -1,0 +1,146 @@
+[
+ {
+  "id": "munnar-tea-estate",
+  "destination": "Munnar",
+  "category": "Tea Plantations",
+  "alt": "Terraced tea estates rolling across the Munnar hills"
+ },
+ {
+  "id": "alleppey-houseboat",
+  "destination": "Alleppey",
+  "category": "Houseboats",
+  "alt": "A traditional Kerala houseboat moored on the Alleppey backwaters"
+ },
+ {
+  "id": "wayanad-green-hills",
+  "destination": "Wayanad",
+  "category": "Forests",
+  "alt": "Green forested hills rising above the Wayanad canopy"
+ },
+ {
+  "id": "goa-sunset-palms",
+  "destination": "Goa",
+  "category": "Beaches",
+  "alt": "Coconut palms silhouetted against a Goa sunset"
+ },
+ {
+  "id": "vagamon-meadows",
+  "destination": "Vagamon",
+  "category": "Hills & Meadows",
+  "alt": "Mist drifting over the open grassland meadows of Vagamon"
+ },
+ {
+  "id": "coorg-waterfall",
+  "destination": "Coorg",
+  "category": "Waterfalls",
+  "alt": "A tall waterfall falling through dense forest"
+ },
+ {
+  "id": "munnar-tea-path",
+  "destination": "Munnar",
+  "category": "Scenic Roads",
+  "alt": "A narrow path winding down through terraced tea slopes"
+ },
+ {
+  "id": "trek-group-hills",
+  "destination": "Wayanad",
+  "category": "Adventure Activities",
+  "alt": "A trekking group climbing a green hillside together"
+ },
+ {
+  "id": "munnar-tea-valley",
+  "destination": "Munnar",
+  "category": "Tea Plantations",
+  "alt": "Wide view over the tea valleys around Munnar"
+ },
+ {
+  "id": "kerala-backwaters",
+  "destination": "Alleppey",
+  "category": "Houseboats",
+  "alt": "A houseboat drifting along a palm-lined backwater channel"
+ },
+ {
+  "id": "wayanad-deer",
+  "destination": "Wayanad",
+  "category": "Jeep Safaris",
+  "alt": "Spotted deer standing in dappled forest light"
+ },
+ {
+  "id": "goa-beach-sunset",
+  "destination": "Goa",
+  "category": "Beaches",
+  "alt": "Warm sunset light behind palms on a quiet beach"
+ },
+ {
+  "id": "group-tea-trail",
+  "destination": "Munnar",
+  "category": "College Tours",
+  "alt": "A travel group walking a trail between tea plantations"
+ },
+ {
+  "id": "wayanad-falls",
+  "destination": "Wayanad",
+  "category": "Waterfalls",
+  "alt": "Wide cascading falls spilling over mossy rock"
+ },
+ {
+  "id": "munnar-viewpoint",
+  "destination": "Munnar",
+  "category": "Mountain Viewpoints",
+  "alt": "A viewpoint railing looking out to a distant peak"
+ },
+ {
+  "id": "hill-resort-pool",
+  "destination": "Coorg",
+  "category": "Resorts",
+  "alt": "A resort pool framed by palms and garden greenery"
+ },
+ {
+  "id": "kerala-lake-hills",
+  "destination": "Kerala",
+  "category": "Kerala Landscapes",
+  "alt": "A quiet lake backed by green hills in the Kerala highlands"
+ },
+ {
+  "id": "wayanad-elephant",
+  "destination": "Wayanad",
+  "category": "Jeep Safaris",
+  "alt": "An elephant among the trees in a forest reserve"
+ },
+ {
+  "id": "goa-beach-friends",
+  "destination": "Goa",
+  "category": "Friends Trips",
+  "alt": "Friends playing together on an open beach"
+ },
+ {
+  "id": "coorg-hills",
+  "destination": "Coorg",
+  "category": "Hills & Meadows",
+  "alt": "Layered green hills fading into cloud over Coorg"
+ },
+ {
+  "id": "ooty-tea-picker",
+  "destination": "Ooty",
+  "category": "Kerala Landscapes",
+  "alt": "A tea estate worker among the Nilgiri tea bushes"
+ },
+ {
+  "id": "summit-trek",
+  "destination": "Vagamon",
+  "category": "Adventure Activities",
+  "alt": "Trekkers following a ridge path toward the summit"
+ },
+ {
+  "id": "sunset-pool-stay",
+  "destination": "Coorg",
+  "category": "Couple Trips",
+  "alt": "A still poolside evening under a wide sunset sky"
+ },
+ {
+  "id": "group-bus-travel",
+  "destination": "Kerala",
+  "category": "Bus Travel",
+  "alt": "A road-side bus on a local Indian highway"
+ }
+]

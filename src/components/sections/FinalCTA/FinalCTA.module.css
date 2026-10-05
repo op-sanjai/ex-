@@ -1,0 +1,153 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1109 0%, #341c0f 55%, #4a2410 100%);
+  color: var(--off-white);
+  padding-block: var(--space-2xl);
+}
+
+.bgArt {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 100%, rgba(232, 112, 58, 0.55), rgba(232, 112, 58, 0) 60%);
+  opacity: 0.6;
+}
+
+.particle {
+  position: absolute;
+  bottom: 10%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.7;
+  filter: blur(0.5px);
+}
+
+.grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.heading {
+  font-size: clamp(2.2rem, 3.2vw + 1rem, 3.8rem);
+  color: var(--off-white);
+  margin-bottom: var(--space-sm);
+}
+
+.lede {
+  color: rgba(248, 245, 238, 0.78);
+  max-width: 44ch;
+  margin-bottom: var(--space-md);
+}
+
+.contactRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.formCard {
+  position: relative;
+  background: rgba(248, 245, 238, 0.06);
+  border: 1px solid rgba(248, 245, 238, 0.14);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(248, 245, 238, 0.7);
+}
+
+.input,
+.select,
+.textarea {
+  background: rgba(8, 22, 17, 0.35);
+  border: 1px solid rgba(248, 245, 238, 0.18);
+  border-radius: var(--radius-sm);
+  padding: 0.7em 0.85em;
+  color: var(--off-white);
+  font-size: 0.92rem;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: rgba(248, 245, 238, 0.4);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.submitRow {
+  grid-column: 1 / -1;
+  margin-top: 0.4rem;
+}
+
+.submitRow button {
+  width: 100%;
+}
+
+.successNote {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  color: var(--gold-soft);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formCard {
+    padding: var(--space-md);
+  }
+}

@@ -1,0 +1,730 @@
+/* =========================================================
+   FOOTER — cinematic
+
+   Oversized brand mark behind the content, an angled marquee of
+   real destinations, glass pills that pull toward the pointer,
+   and a slow ambient glow.
+
+   Transform ownership: GSAP writes .wordmark, .lead, .columns
+   and every [data-magnetic] element. Nothing here may set a
+   transform on those — .marqueeTrack and .aurora animate in CSS
+   because GSAP never touches them.
+
+   Colours are this project's neutral scale from index.css; the
+   reference's oklch/shadcn tokens do not exist here.
+========================================================= */
+
+.footer {
+  position: relative;
+
+  padding-block: clamp(4rem, 9vw, 7rem) clamp(2rem, 4vw, 3rem);
+
+  background: var(--black);
+
+  color: var(--off-white);
+
+  /* `clip`, not `hidden` — `hidden` makes this a scroll container,
+     which the pinned sections above measure against. */
+  overflow-x: clip;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   AMBIENT
+========================================================= */
+
+.aurora {
+  position: absolute;
+
+  top: 42%;
+  left: 50%;
+
+  z-index: 0;
+
+  width: min(80vw, 60rem);
+  height: min(50vh, 30rem);
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(245, 245, 242, 0.09) 0%,
+    rgba(245, 245, 242, 0.035) 42%,
+    transparent 70%
+  );
+
+  filter: blur(80px);
+
+  transform: translate(-50%, -50%);
+
+  animation: footerBreathe 8s ease-in-out infinite alternate;
+
+  pointer-events: none;
+}
+
+@keyframes footerBreathe {
+  from {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+}
+
+.grid {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(245, 245, 242, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(245, 245, 242, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 28%,
+    black 72%,
+    transparent
+  );
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   WORDMARK
+
+   Sits behind everything. Outlined rather than filled so it
+   reads as texture, not a second headline.
+========================================================= */
+
+.wordmark {
+  position: absolute;
+
+  bottom: -2vw;
+  left: 50%;
+
+  z-index: 0;
+
+  margin-left: -50vw;
+  width: 100vw;
+
+  font-family: var(--font-display);
+
+  font-size: 21vw;
+
+  font-weight: 400;
+
+  line-height: 0.75;
+
+  letter-spacing: -0.05em;
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  color: transparent;
+
+  background: linear-gradient(
+    180deg,
+    rgba(245, 245, 242, 0.12) 0%,
+    transparent 62%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-stroke: 1px rgba(245, 245, 242, 0.06);
+
+  pointer-events: none;
+
+  user-select: none;
+
+  will-change: transform, opacity;
+}
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee {
+  position: absolute;
+
+  top: clamp(1.5rem, 5vw, 4rem);
+  right: -6%;
+  left: -6%;
+
+  z-index: 1;
+
+  padding-block: 0.85rem;
+
+  background: rgba(5, 5, 5, 0.55);
+
+  border-block: 1px solid rgba(245, 245, 242, 0.1);
+
+  backdrop-filter: blur(10px);
+
+  overflow: hidden;
+
+  transform: rotate(-2deg);
+
+  pointer-events: none;
+}
+
+.marqueeTrack {
+  display: flex;
+
+  width: max-content;
+
+  animation: footerMarquee 42s linear infinite;
+}
+
+@keyframes footerMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    /* Exactly one of the two identical runs. */
+    transform: translateX(-50%);
+  }
+}
+
+.marqueeRun {
+  display: flex;
+
+  align-items: center;
+
+  flex-shrink: 0;
+}
+
+.marqueeItem {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 2.5rem;
+
+  padding-inline: 1.25rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.72rem;
+
+  letter-spacing: 0.3em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-400);
+
+  white-space: nowrap;
+}
+
+.marqueeStar {
+  color: rgba(245, 245, 242, 0.28);
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.inner {
+  position: relative;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   LEAD
+========================================================= */
+
+.lead {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  margin-top: clamp(3rem, 8vw, 6rem);
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+
+  text-align: center;
+
+  will-change: transform, opacity;
+}
+
+.eyebrow {
+  margin-bottom: 1.15rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.26em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-400);
+}
+
+.headline {
+  max-width: 16ch;
+
+  margin: 0 0 clamp(2rem, 4vw, 3rem);
+
+  font-family: var(--font-display);
+
+  font-size: clamp(2.4rem, 6vw, 5.5rem);
+
+  font-weight: 400;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.05em;
+
+  /* Metallic falloff, as in the reference. */
+  background: linear-gradient(
+    180deg,
+    var(--off-white) 0%,
+    rgba(245, 245, 242, 0.42) 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.actions {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 1rem;
+}
+
+/* =========================================================
+   GLASS PILL
+
+   GSAP owns transform on [data-magnetic], so this transitions
+   colour only.
+========================================================= */
+
+.pill {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.6rem;
+
+  padding: 1rem 1.75rem;
+
+  font-family: var(--font-body);
+
+  font-size: 0.88rem;
+
+  font-weight: 600;
+
+  letter-spacing: 0.01em;
+
+  text-decoration: none;
+
+  color: var(--off-white);
+
+  background: linear-gradient(
+    145deg,
+    rgba(245, 245, 242, 0.07) 0%,
+    rgba(245, 245, 242, 0.02) 100%
+  );
+
+  border: 1px solid rgba(245, 245, 242, 0.12);
+
+  border-radius: var(--radius-pill);
+
+  box-shadow:
+    0 10px 30px -10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(245, 245, 242, 0.1);
+
+  backdrop-filter: blur(16px);
+
+  transition:
+    background var(--dur-med) var(--ease-soft),
+    border-color var(--dur-med) var(--ease-soft),
+    color var(--dur-med) var(--ease-soft);
+}
+
+.pillPrimary:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(245, 245, 242, 0.14) 0%,
+    rgba(245, 245, 242, 0.04) 100%
+  );
+
+  border-color: rgba(245, 245, 242, 0.28);
+}
+
+.pill:focus-visible,
+.toTop:focus-visible,
+.socialLink:focus-visible {
+  outline: 2px solid var(--off-white);
+  outline-offset: 3px;
+}
+
+.pillQuiet {
+  padding: 0.6rem 1.1rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.66rem;
+
+  font-weight: 400;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-300);
+
+  cursor: default;
+}
+
+/* =========================================================
+   COLUMNS
+========================================================= */
+
+.columns {
+  display: grid;
+
+  grid-template-columns: 1.6fr repeat(3, minmax(0, 1fr));
+
+  gap: clamp(1.75rem, 3.5vw, 3.5rem);
+
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+
+  border-bottom: 1px solid rgba(245, 245, 242, 0.1);
+
+  will-change: transform, opacity;
+}
+
+.brandCol {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.1rem;
+}
+
+.logoRow {
+  display: flex;
+
+  align-items: baseline;
+
+  gap: 0.4rem;
+}
+
+.logo {
+  font-family: var(--font-display);
+
+  font-size: 1.5rem;
+
+  letter-spacing: -0.03em;
+
+  color: var(--off-white);
+}
+
+.logoSub {
+  font-family: var(--font-display);
+
+  font-style: italic;
+
+  font-size: 1rem;
+
+  color: var(--grey-400);
+}
+
+.tagline {
+  max-width: 42ch;
+
+  margin: 0;
+
+  font-size: 0.88rem;
+
+  line-height: 1.7;
+
+  color: var(--grey-300);
+}
+
+.socialRow {
+  display: flex;
+
+  gap: 0.6rem;
+}
+
+.socialLink {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 2.75rem;
+  height: 2.75rem;
+
+  color: var(--grey-300);
+
+  background: rgba(245, 245, 242, 0.06);
+
+  border: 1px solid rgba(245, 245, 242, 0.12);
+
+  border-radius: 50%;
+
+  transition:
+    color var(--dur-med) var(--ease-soft),
+    border-color var(--dur-med) var(--ease-soft);
+}
+
+.socialLink:hover {
+  color: var(--off-white);
+
+  border-color: rgba(245, 245, 242, 0.3);
+}
+
+/* =========================================================
+   COLUMN CONTENT
+========================================================= */
+
+.colTitle {
+  margin: 0 0 1rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.68rem;
+
+  font-weight: 400;
+
+  letter-spacing: 0.22em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-400);
+}
+
+.colTitleSpaced {
+  margin-top: 1.75rem;
+}
+
+.linkList,
+.contactList {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.6rem;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.linkList a {
+  font-size: 0.88rem;
+
+  color: var(--grey-300);
+
+  text-decoration: none;
+
+  transition: color var(--dur-fast) var(--ease-soft);
+}
+
+.linkList a:hover {
+  color: var(--off-white);
+}
+
+.contactItem {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 0.6rem;
+
+  font-size: 0.85rem;
+
+  line-height: 1.6;
+
+  color: var(--grey-300);
+}
+
+.contactItem svg {
+  flex-shrink: 0;
+
+  margin-top: 0.2rem;
+
+  color: var(--grey-400);
+}
+
+/* =========================================================
+   BOTTOM
+========================================================= */
+
+.bottom {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1.25rem;
+
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.copyright {
+  font-family: var(--font-display);
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-400);
+}
+
+.toTop {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 3rem;
+  height: 3rem;
+
+  color: var(--grey-300);
+
+  background: rgba(245, 245, 242, 0.06);
+
+  border: 1px solid rgba(245, 245, 242, 0.12);
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition:
+    color var(--dur-med) var(--ease-soft),
+    border-color var(--dur-med) var(--ease-soft);
+}
+
+.toTop:hover {
+  color: var(--off-white);
+
+  border-color: rgba(245, 245, 242, 0.3);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brandCol {
+    grid-column: 1 / -1;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .marquee {
+    top: 1rem;
+  }
+
+  .marqueeItem {
+    gap: 1.5rem;
+
+    font-size: 0.62rem;
+
+    letter-spacing: 0.22em;
+  }
+
+  .wordmark {
+    bottom: -1vw;
+
+    font-size: 26vw;
+  }
+
+  .lead {
+    margin-top: 4.5rem;
+  }
+
+  .actions {
+    flex-direction: column;
+
+    align-self: stretch;
+  }
+
+  .pill {
+    justify-content: center;
+  }
+
+  .columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bottom {
+    justify-content: center;
+
+    text-align: center;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+
+   Nothing is hidden here — the component sets the visible
+   state explicitly. Only the ambient loops stop.
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora,
+  .marqueeTrack {
+    animation: none;
+  }
+
+  .wordmark,
+  .lead,
+  .columns {
+    will-change: auto;
+  }
+
+  .pill,
+  .socialLink,
+  .toTop,
+  .linkList a {
+    transition: none;
+  }
+}

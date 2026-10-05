@@ -1,0 +1,123 @@
+.section {
+  position: relative;
+  background: var(--forest-deep);
+  padding-block: var(--space-2xl);
+  overflow: hidden;
+  color: var(--off-white);
+}
+
+.bgArt {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  mix-blend-mode: soft-light;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: var(--space-xl);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.header :global(.lede) {
+  color: rgba(248, 245, 238, 0.72);
+}
+
+.ratingNote {
+  font-size: 0.85rem;
+  color: rgba(248, 245, 238, 0.6);
+}
+
+.trackViewport {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+}
+
+.track {
+  display: flex;
+  gap: var(--space-md);
+  width: max-content;
+}
+
+.card {
+  flex: 0 0 340px;
+  background: rgba(248, 245, 238, 0.06);
+  border: 1px solid rgba(248, 245, 238, 0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.typeTag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.stars {
+  display: flex;
+  gap: 0.15rem;
+  color: var(--gold);
+}
+
+.quote {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(248, 245, 238, 0.9);
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--sunset-orange));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--forest-deep);
+  flex-shrink: 0;
+}
+
+.personName {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.personGroup {
+  font-size: 0.78rem;
+  color: rgba(248, 245, 238, 0.6);
+}
+
+.footer {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-xl);
+  display: flex;
+  justify-content: center;
+}

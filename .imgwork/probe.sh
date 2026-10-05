@@ -1,0 +1,29 @@
+#!/bin/bash
+# Probe candidate Unsplash photo IDs, report which return real image bytes
+ids=(
+1506905925346-21bda4d32df4
+1441974231531-c6227db76b6e
+1469474968028-56623f02e42e
+1470071459604-3b5ec3a7fe05
+1501785888041-af3ef285b470
+1472214103451-9374bd1c798e
+1433086966358-54859d0ed716
+1426604966848-d7adac402bff
+1447752875215-b2761acb3c5d
+1518098268026-4e89f1a2cd8e
+1464822759023-fed622ff2c3b
+1519681393784-d120267933ba
+1454496522488-7a8e488e8606
+1483728642387-6c3bdd6c93e5
+1486870591958-9b9d0d1dda99
+1444927714506-8492d94b4e3d
+1418065460487-3e41a6c84dc5
+1465101162946-4377e57745c3
+1439853949127-fa647821eba0
+1490682143684-14369e18dce8
+)
+for id in "${ids[@]}"; do
+  code=$(curl -s -o "raw/$id.jpg" -w "%{http_code}" --max-time 25 "https://images.unsplash.com/photo-$id?w=2400&q=80&fm=jpg")
+  size=$(stat -c %s "raw/$id.jpg" 2>/dev/null || echo 0)
+  echo "$id http=$code bytes=$size"
+done

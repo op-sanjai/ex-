@@ -1,0 +1,89 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  padding: 0.95em 1.7em;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: transform var(--dur-fast) var(--ease-soft), background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast), box-shadow var(--dur-fast);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.icon {
+  width: 1.1em;
+  height: 1.1em;
+  flex-shrink: 0;
+}
+
+.primary {
+  background: var(--sunset-orange);
+  color: var(--off-white);
+  box-shadow: 0 8px 24px -10px rgba(232, 112, 58, 0.55);
+}
+
+.primary:hover {
+  background: #d8622e;
+}
+
+.secondary {
+  background: transparent;
+  color: var(--off-white);
+  border-color: var(--color-border-inverse);
+  backdrop-filter: blur(6px);
+}
+
+.secondary:hover {
+  background: var(--glass-bg);
+  border-color: rgba(248, 245, 238, 0.4);
+}
+
+.secondaryOnLight {
+  background: transparent;
+  color: var(--forest-deep);
+  border-color: var(--color-border);
+}
+
+.secondaryOnLight:hover {
+  background: rgba(11, 43, 34, 0.06);
+}
+
+.whatsapp {
+  background: #1c4d3b;
+  color: var(--off-white);
+}
+
+.whatsapp:hover {
+  background: #163d2e;
+}
+
+.ghost {
+  background: transparent;
+  color: inherit;
+  border-color: currentColor;
+  opacity: 0.85;
+}
+
+.ghost:hover {
+  opacity: 1;
+}
+
+.sm {
+  padding: 0.65em 1.3em;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .btn {
+    padding: 0.85em 1.4em;
+    font-size: 0.9rem;
+  }
+}

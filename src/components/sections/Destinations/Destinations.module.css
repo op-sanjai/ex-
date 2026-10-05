@@ -1,0 +1,395 @@
+/* =========================================================
+   DESTINATIONS — draggable pile
+
+   Cards are scattered across the stage and can be picked up,
+   thrown and shuffled. GSAP's Draggable owns x/y and the tilt
+   owns rotationX/rotationY, so nothing here may set a transform
+   on .card — the resting angle is written by GSAP too.
+
+   Coarse pointers get a plain grid instead: a drag surface this
+   large swallows the vertical swipe the page needs to scroll.
+========================================================= */
+
+.section {
+  position: relative;
+
+  background: var(--black);
+
+  color: var(--off-white);
+
+  /* `clip`, not `hidden` — `hidden` makes this a scroll container. */
+  overflow-x: clip;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro {
+  max-width: var(--container-max);
+
+  margin-inline: auto;
+
+  padding: clamp(4rem, 9vw, 7.5rem) var(--container-pad)
+    clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.eyebrow {
+  display: block;
+
+  margin-bottom: 1.15rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.7rem;
+
+  letter-spacing: 0.26em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-400);
+}
+
+.title {
+  max-width: 20ch;
+
+  margin: 0;
+
+  font-family: var(--font-display);
+
+  font-size: clamp(2.2rem, 4.2vw, 4.4rem);
+
+  font-weight: 400;
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+
+  color: var(--off-white);
+}
+
+.lede {
+  max-width: 46ch;
+
+  margin: 1.35rem 0 0;
+
+  font-size: 1rem;
+
+  line-height: 1.65;
+
+  color: var(--grey-300);
+}
+
+/* =========================================================
+   STAGE
+
+   Also the drag bounds, so a thrown card can never land over a
+   neighbouring section.
+========================================================= */
+
+.stage {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 100svh;
+
+  /* The depth the card tilt is read against. */
+  perspective: 1200px;
+
+  /* Cards are dragged around in here; clip rather than scroll. */
+  overflow: hidden;
+}
+
+.hint {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  z-index: 0;
+
+  margin: 0;
+
+  font-family: var(--font-display);
+
+  font-size: clamp(1.5rem, 4vw, 3rem);
+
+  letter-spacing: -0.03em;
+
+  color: rgba(245, 245, 242, 0.07);
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  user-select: none;
+}
+
+/* =========================================================
+   CARD
+
+   GSAP writes transform (x, y, rotation, rotationX/Y) and
+   z-index. Position comes from the --spot-* custom properties.
+========================================================= */
+
+.card {
+  position: absolute;
+
+  top: var(--spot-top, 10%);
+  left: var(--spot-left, 10%);
+
+  width: clamp(15rem, 20vw, 19rem);
+
+  overflow: hidden;
+
+  background: var(--panel-bg, var(--charcoal));
+
+  border: 1px solid rgba(245, 245, 242, 0.1);
+
+  border-radius: var(--radius-md);
+
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.62);
+
+  /* The card is grabbed as a whole; Draggable swaps in the grabbing
+     cursor while it is held. */
+  touch-action: none;
+
+  will-change: transform;
+}
+
+.art {
+  position: relative;
+
+  aspect-ratio: 4 / 5;
+}
+
+/* SceneArt is an inline <svg> carrying preserveAspectRatio="xMidYMax slice",
+   so filling the box is enough — it crops itself like object-fit: cover. */
+.art svg,
+.image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  /* Stops the browser's own image drag from fighting Draggable. */
+  pointer-events: none;
+
+  user-select: none;
+}
+
+.scrim {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to top,
+    rgba(5, 5, 5, 0.9) 0%,
+    rgba(5, 5, 5, 0.25) 55%,
+    rgba(5, 5, 5, 0.4) 100%
+  );
+}
+
+/* Sheen driven by pointer position. Opacity is written by GSAP. */
+.glare {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 4;
+
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 80%
+  );
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   META
+========================================================= */
+
+.topMeta {
+  position: absolute;
+
+  top: 0.9rem;
+  right: 1rem;
+  left: 1rem;
+
+  z-index: 3;
+
+  display: flex;
+
+  align-items: baseline;
+  justify-content: space-between;
+
+  gap: 0.75rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.62rem;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-300);
+
+  pointer-events: none;
+}
+
+.number {
+  color: var(--panel-accent, var(--off-white));
+}
+
+.state {
+  color: var(--grey-300);
+}
+
+/* =========================================================
+   COPY
+========================================================= */
+
+.copy {
+  position: absolute;
+
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+
+  z-index: 3;
+}
+
+.name {
+  margin: 0 0 0.25rem;
+
+  font-family: var(--font-display);
+
+  font-size: clamp(1.35rem, 1.9vw, 1.8rem);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -0.035em;
+
+  color: var(--off-white);
+}
+
+.tagline {
+  margin: 0 0 0.45rem;
+
+  font-family: var(--font-display);
+
+  font-style: italic;
+
+  font-size: 0.86rem;
+
+  color: rgba(245, 245, 242, 0.82);
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+
+  overflow: hidden;
+
+  margin: 0 0 0.85rem;
+
+  font-size: 0.79rem;
+
+  line-height: 1.5;
+
+  color: var(--grey-300);
+}
+
+/* =========================================================
+   NARROW / TOUCH  (<= 768px, or any coarse pointer)
+
+   No dragging — see DRAGGABLE in Destinations.jsx. The pile
+   flattens into a readable grid and every card keeps its CTA.
+========================================================= */
+
+@media (max-width: 768px), (hover: none), (pointer: coarse) {
+  .stage {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+
+    gap: clamp(1rem, 3vw, 1.75rem);
+
+    min-height: 0;
+
+    padding: 0 var(--container-pad) clamp(3rem, 8vw, 5rem);
+
+    perspective: none;
+
+    overflow: visible;
+  }
+
+  .hint {
+    display: none;
+  }
+
+  .card {
+    position: static;
+
+    width: auto;
+
+    touch-action: auto;
+
+    will-change: auto;
+  }
+
+  .glare {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .stage {
+    max-width: var(--container-max);
+
+    margin-inline: auto;
+  }
+
+  .description {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+
+    font-size: 0.84rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+
+   Dragging stays — it is user-driven, not motion the page
+   performs. Only the tilt and sheen are dropped, in the
+   component.
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    will-change: auto;
+  }
+
+  .glare {
+    display: none;
+  }
+}

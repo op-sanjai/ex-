@@ -1,0 +1,427 @@
+/* =========================================================
+   GALLERY — coverflow carousel
+
+   Cards sit on a ring in 3D: the centre card faces the viewer,
+   its neighbours rake away and recede. Position is written to
+   the DOM directly from JS every frame, so nothing here may set
+   a transform on .card — the two would fight.
+
+   --cf-card is the one dimension everything else derives from
+   (pitch, depth and perspective are all fractions of it), which
+   is why the rake needs no per-breakpoint retuning.
+========================================================= */
+
+.section {
+  position: relative;
+
+  padding-block: clamp(4rem, 9vw, 7.5rem);
+
+  background: var(--off-white);
+
+  color: var(--ink);
+
+  overflow-x: clip;
+}
+
+.header {
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.filters {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.filterBtn {
+  padding: 0.5rem 0.95rem;
+
+  font-family: var(--font-body);
+
+  font-size: 0.78rem;
+
+  letter-spacing: 0.02em;
+
+  color: var(--ink-soft);
+
+  background: transparent;
+
+  border: 1px solid var(--color-border);
+
+  border-radius: var(--radius-pill);
+
+  cursor: pointer;
+
+  transition:
+    color var(--dur-fast) var(--ease-soft),
+    background var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft);
+}
+
+.filterBtn:hover {
+  color: var(--ink);
+
+  border-color: var(--ink);
+}
+
+.filterBtn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.filterBtnActive {
+  color: var(--white);
+
+  background: var(--ink);
+
+  border-color: var(--ink);
+}
+
+/* =========================================================
+   CAROUSEL
+========================================================= */
+
+.carousel {
+  position: relative;
+}
+
+.stage {
+  --cf-card: clamp(190px, 24vw, 320px);
+  --cf-ratio: 1.28;
+
+  /* Viewer distance as a multiple of card width — smaller is a wider lens. */
+  perspective: calc(var(--cf-card) * 3);
+
+  /* Vertical padding keeps card shadows clear of the overflow clip. */
+  padding-block: clamp(1.5rem, 3vw, 2.75rem);
+
+  overflow: hidden;
+
+  cursor: grab;
+
+  outline: none;
+
+  /* Horizontal drag is ours; the page keeps vertical scrolling. */
+  touch-action: pan-y;
+}
+
+.stage:active {
+  cursor: grabbing;
+}
+
+.stage:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+
+  border-radius: var(--radius-sm);
+}
+
+.track {
+  position: relative;
+
+  height: calc(var(--cf-card) * var(--cf-ratio));
+
+  transform-style: preserve-3d;
+
+  user-select: none;
+}
+
+/* =========================================================
+   CARD
+
+   Transform, opacity and z-index are all written from JS.
+========================================================= */
+
+.card {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: var(--cf-card);
+  height: calc(var(--cf-card) * var(--cf-ratio));
+
+  margin: 0;
+
+  overflow: hidden;
+
+  background: var(--charcoal);
+
+  border-radius: var(--radius-md);
+
+  box-shadow: 0 26px 60px rgba(5, 5, 5, 0.28);
+
+  will-change: transform, opacity;
+}
+
+.cardArt {
+  width: 100%;
+  height: 100%;
+}
+
+/* SceneArt is an inline <svg> carrying preserveAspectRatio="xMidYMax slice",
+   so filling the box is enough — it crops itself like object-fit: cover. */
+.cardArt svg {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  pointer-events: none;
+}
+
+.videoBadge {
+  position: absolute;
+
+  top: 0.7rem;
+  right: 0.7rem;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 2rem;
+  height: 2rem;
+
+  color: var(--ink);
+
+  background: rgba(255, 255, 255, 0.88);
+
+  border-radius: 50%;
+
+  backdrop-filter: blur(4px);
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navBtn {
+  position: absolute;
+
+  top: 50%;
+
+  z-index: 200;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  color: var(--ink);
+
+  background: rgba(255, 255, 255, 0.82);
+
+  border: 1px solid var(--color-border);
+
+  border-radius: 50%;
+
+  backdrop-filter: blur(6px);
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+
+  transition:
+    background var(--dur-fast) var(--ease-soft),
+    border-color var(--dur-fast) var(--ease-soft);
+}
+
+.navBtn:hover {
+  background: var(--white);
+
+  border-color: var(--ink);
+}
+
+.navBtn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.navPrev {
+  left: clamp(0.25rem, 2vw, 1.5rem);
+}
+
+.navNext {
+  right: clamp(0.25rem, 2vw, 1.5rem);
+}
+
+/* =========================================================
+   CAPTION
+========================================================= */
+
+.caption {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 0.4rem;
+
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+
+  text-align: center;
+
+  animation: captionIn 400ms var(--ease-soft) both;
+}
+
+@keyframes captionIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.captionCategory {
+  font-family: var(--font-display);
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.22em;
+
+  text-transform: uppercase;
+
+  color: var(--ink-soft);
+}
+
+.captionText {
+  font-family: var(--font-display);
+
+  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+
+  line-height: 1.2;
+
+  letter-spacing: -0.02em;
+
+  color: var(--ink);
+}
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+.dots {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+
+  padding: 0;
+
+  background: var(--ink);
+
+  border: 0;
+  border-radius: 50%;
+
+  opacity: 0.25;
+
+  cursor: pointer;
+
+  transition: opacity var(--dur-fast) var(--ease-soft);
+}
+
+.dot:hover {
+  opacity: 0.6;
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.dotActive {
+  opacity: 1;
+}
+
+/* =========================================================
+   MOBILE
+
+   The rake itself is softened from JS (RAKE.narrow); this only
+   has to keep the frame and controls usable.
+========================================================= */
+
+@media (max-width: 640px) {
+  .filters {
+    /* A wrapped grid of nine filters eats the viewport — scroll them
+       instead, so the carousel stays above the fold. */
+    flex-wrap: nowrap;
+
+    justify-content: flex-start;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+
+    /* Bleed to the container edges so the row reads as scrollable. */
+    margin-inline: calc(var(--container-pad) * -1);
+    padding-inline: var(--container-pad);
+  }
+
+  .filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filterBtn {
+    flex: 0 0 auto;
+  }
+
+  .stage {
+    --cf-card: clamp(160px, 52vw, 240px);
+  }
+
+  .navBtn {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    will-change: auto;
+  }
+
+  .caption {
+    animation: none;
+  }
+
+  .filterBtn,
+  .navBtn,
+  .dot {
+    transition: none;
+  }
+}

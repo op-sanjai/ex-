@@ -1,0 +1,450 @@
+/* ScrollMorphHero — scroll-driven travel gallery hero.
+   Global (non-module) stylesheet: every selector is namespaced `smh-`. */
+
+.smh {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  background: #f7f7f5;
+  overflow: clip;
+}
+
+.smh-pin {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---------- Background: layered destination tones, cross-faded on opacity ---------- */
+
+.smh-bg,
+.smh-bg-exit,
+.smh-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.smh-tone {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+/* Light mist base — never a flat white. */
+.smh-tone--mist {
+  background:
+    radial-gradient(120% 90% at 50% 8%, #ffffff 0%, rgba(255, 255, 255, 0) 58%),
+    radial-gradient(90% 70% at 18% 88%, #e7e7e4 0%, rgba(223, 230, 220, 0) 62%),
+    linear-gradient(180deg, #fafafa 0%, #eeeeeb 100%);
+}
+
+.smh-tone--tea {
+  opacity: 0;
+  background:
+    radial-gradient(
+      100% 80% at 78% 20%,
+      rgba(220, 220, 217, 0.92) 0%,
+      rgba(220, 220, 217, 0) 62%
+    ),
+    linear-gradient(180deg, #f6f6f3 0%, #e8e8e5 100%);
+}
+
+.smh-tone--sand {
+  opacity: 0;
+  background:
+    radial-gradient(
+      110% 85% at 24% 18%,
+      rgba(232, 232, 228, 0.95) 0%,
+      rgba(232, 232, 228, 0) 60%
+    ),
+    linear-gradient(180deg, #f7f7f4 0%, #e6e6e2 100%);
+}
+
+.smh-tone--blue {
+  opacity: 0;
+  background:
+    radial-gradient(
+      100% 80% at 70% 26%,
+      rgba(225, 225, 222, 0.95) 0%,
+      rgba(225, 225, 222, 0) 60%
+    ),
+    linear-gradient(180deg, #f8f8f6 0%, #e9e9e6 100%);
+}
+
+.smh-tone--cream {
+  opacity: 0;
+  background:
+    radial-gradient(
+      120% 90% at 50% 78%,
+      rgba(235, 235, 232, 0.95) 0%,
+      rgba(235, 235, 232, 0) 62%
+    ),
+    linear-gradient(180deg, #f7f7f4 0%, #e5e5e1 100%);
+}
+
+/* Warm hand-off into the Journey Introduction section. */
+.smh-bg-exit {
+  opacity: 0;
+  background: linear-gradient(180deg, #383837 0%, #d7d7d3 100%);
+}
+
+/* Very light film grain — masks gradient banding on wide screens. */
+.smh-grain {
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* ---------- Gallery ---------- */
+
+.smh-parallax {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.smh-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.smh-stage.is-live .smh-card {
+  will-change: transform, opacity;
+}
+
+.smh-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 96px;
+  height: 128px;
+  margin: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #efefec;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 12px 26px -12px rgba(0, 0, 0, 0.22);
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
+}
+
+.smh-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover is a pure image scale — it never touches the card transform the
+   scroll timeline owns, so the two cannot fight. */
+@media (hover: hover) and (pointer: fine) {
+  .smh-card:hover img {
+    transform: scale(1.12);
+  }
+}
+
+/* ---------- Centre content ---------- */
+
+.smh-intro {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1rem, 1.4vw + 0.7rem, 1.6rem);
+  color: #2b2b2b;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.smh-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
+  pointer-events: none;
+}
+
+.smh-content > *:not(.smh-content-glow) {
+  pointer-events: auto;
+}
+
+/* Blurred radial wash keeps the headline readable over the photo ring. */
+.smh-content-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(760px, 88vw);
+  height: min(420px, 52svh);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(243, 242, 242, 0.96),
+    rgba(255, 255, 255, 0.68) 58%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.smh-eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #111111;
+  margin-bottom: 0.9rem;
+  opacity: 0;
+}
+
+.smh-heading {
+  margin: 0 0 1rem;
+  max-width: min(600px, 80vw);
+  font-family: var(--font-display);
+  font-weight: 600;
+  /* Capped by width AND height: the ring shrinks with viewport height, so on
+     short screens (1366x768) a purely vw-based size would overrun the cards. */
+  font-size: min(clamp(1.9rem, 3.2vw + 0.5rem, 3.5rem), 6.2svh);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: #0a0a0a;
+}
+
+.smh-line {
+  display: block;
+  opacity: 0;
+}
+
+.smh-support {
+  max-width: min(46ch, 78vw);
+  margin: 0 auto 1.5rem;
+  font-size: clamp(0.92rem, 0.35vw + 0.84rem, 1.05rem);
+  line-height: 1.6;
+  color: #424040;
+  opacity: 0;
+}
+
+/* Capped so four actions wrap to 2x2 inside the ring instead of one wide row. */
+.smh-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  max-width: min(470px, 78vw);
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* ---------- Active destination label ---------- */
+
+.smh-label {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.4rem, 4svh, 3rem);
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.smh-label-kicker {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #7a7a78;
+}
+
+.smh-label-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw + 0.8rem, 2.4rem);
+  font-weight: 600;
+  color: #0a0a0a;
+  line-height: 1;
+}
+
+/* ---------- Reduced motion: static, fully visible, no pin ---------- */
+
+.smh--static .smh-pin {
+  height: auto;
+  min-height: 100svh;
+  padding-block: clamp(5rem, 12svh, 8rem) clamp(14rem, 34svh, 22rem);
+  overflow: hidden;
+}
+
+.smh--static .smh-content {
+  position: relative;
+  inset: auto;
+  justify-content: flex-start;
+}
+
+.smh--static .smh-parallax {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 46svh;
+}
+
+.smh--static .smh-intro {
+  display: none;
+}
+
+.smh--static .smh-label {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  margin-top: 1.5rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .smh-card {
+    width: 58px;
+    height: 78px;
+    border-radius: 11px;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.08),
+      0 8px 18px -10px rgba(24, 38, 30, 0.32);
+  }
+
+  .smh-intro {
+    white-space: normal;
+    max-width: 82vw;
+  }
+
+  .smh-content-glow {
+    width: 94vw;
+    height: 46svh;
+  }
+
+  /* Tightened so the eyebrow stays inside the ring's clear centre on narrow
+     screens instead of running under the upper-left/right cards. */
+  .smh-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .smh-cta {
+    flex-direction: column;
+    align-items: stretch;
+    width: min(320px, 82vw);
+  }
+
+  .smh-support {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Minimal monochrome finish — keeps photography visible without green tint. */
+.smh-card img {
+  filter: saturate(0.78) contrast(1.04);
+}
+
+.smh-card {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.smh-grain {
+  opacity: 0.16;
+}
+/* =========================================================
+   FINAL MINIMAL OVERRIDES — remove remaining green flashes
+========================================================= */
+
+.smh {
+  background: #f7f7f5 !important;
+}
+
+.smh-pin {
+  background: #f7f7f5 !important;
+}
+
+/* Every animated tone stays neutral */
+.smh-tone--mist {
+  background:
+    radial-gradient(120% 90% at 50% 8%, #ffffff 0%, rgba(255, 255, 255, 0) 58%),
+    radial-gradient(90% 70% at 18% 88%, #dededb 0%, rgba(222, 222, 219, 0) 62%),
+    linear-gradient(180deg, #fafafa 0%, #ececea 100%) !important;
+}
+
+.smh-tone--tea {
+  background:
+    radial-gradient(
+      100% 80% at 78% 20%,
+      rgba(225, 225, 222, 0.9) 0%,
+      rgba(225, 225, 222, 0) 62%
+    ),
+    linear-gradient(180deg, #f5f5f3 0%, #e4e4e1 100%) !important;
+}
+
+.smh-tone--sand {
+  background:
+    radial-gradient(
+      110% 85% at 24% 18%,
+      rgba(232, 232, 229, 0.95) 0%,
+      rgba(232, 232, 229, 0) 60%
+    ),
+    linear-gradient(180deg, #f7f7f5 0%, #e6e6e2 100%) !important;
+}
+
+.smh-tone--blue {
+  background:
+    radial-gradient(
+      100% 80% at 70% 26%,
+      rgba(225, 225, 223, 0.95) 0%,
+      rgba(225, 225, 223, 0) 60%
+    ),
+    linear-gradient(180deg, #f7f7f5 0%, #e5e5e2 100%) !important;
+}
+
+.smh-tone--cream {
+  background:
+    radial-gradient(
+      120% 90% at 50% 78%,
+      rgba(235, 235, 232, 0.95) 0%,
+      rgba(235, 235, 232, 0) 62%
+    ),
+    linear-gradient(180deg, #f8f8f6 0%, #e4e4e0 100%) !important;
+}
+
+/* Hero final hand-off before Journey enters */
+.smh-bg-exit {
+  background: linear-gradient(180deg, #ededeb 0%, #d5d5d1 100%) !important;
+}
+
+/* Prevent transparent frames from exposing old green */
+.smh-bg {
+  background: #f7f7f5 !important;
+}

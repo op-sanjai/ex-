@@ -1,0 +1,18 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.heading {
+  color: inherit;
+}
+
+.lede {
+  margin: 0;
+}

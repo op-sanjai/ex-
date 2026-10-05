@@ -1,0 +1,296 @@
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  background: #fdfffe;
+  overflow: clip;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  color: var(--off-white);
+  isolation: isolate;
+  visibility: visible;
+  opacity: 1;
+  transform: translateZ(0);
+  will-change: transform, filter;
+}
+
+.content {
+  position: relative;
+  z-index: 20;
+
+  width: min(100%, 1360px);
+  height: 100%;
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  gap: var(--space-md);
+  padding-inline: var(--container-pad);
+  padding-top: clamp(5rem, 8vh, 8rem);
+  padding-bottom: 7vh;
+
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.content > * {
+  pointer-events: auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+
+  color: var(--gold-soft);
+  font-size: clamp(0.72rem, 0.3vw + 0.68rem, 0.9rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  will-change: transform, opacity, letter-spacing;
+}
+
+.heading {
+  position: relative;
+
+  max-width: 12ch;
+  margin: 0;
+
+  font-size: clamp(3rem, 4.2vw + 1.4rem, 7rem);
+  font-weight: 600;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+
+  color: var(--off-white);
+
+  text-wrap: balance;
+
+  text-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.22),
+    0 18px 55px rgba(0, 0, 0, 0.35);
+
+  perspective: 1000px;
+}
+
+.heading :global(.word-mask) {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.13em;
+  margin-bottom: -0.13em;
+}
+
+.heading :global(.word-inner) {
+  display: inline-block;
+  will-change: transform, opacity;
+  transform-origin: 50% 100%;
+}
+
+.headingLine {
+  display: block;
+  overflow: visible;
+}
+
+.supporting {
+  max-width: 48ch;
+  margin: 0;
+
+  font-size: clamp(1rem, 0.38vw + 0.9rem, 1.22rem);
+  font-weight: 400;
+  line-height: 1.7;
+
+  color: rgba(248, 245, 238, 0.88);
+
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: transform, opacity;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+
+  max-width: 850px;
+  margin-top: 0.55rem;
+
+  will-change: transform, opacity;
+}
+
+.buttonRow > * {
+  opacity: 0;
+  transform: translateY(28px) scale(0.94);
+  will-change: transform, opacity;
+}
+
+.scrollIndicator {
+  position: absolute;
+  z-index: 30;
+
+  left: 50%;
+  bottom: 1.75rem;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+
+  color: rgba(248, 245, 238, 0.78);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.scrollLine {
+  position: relative;
+
+  width: 1px;
+  height: 38px;
+
+  overflow: hidden;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(248, 245, 238, 0.9),
+    rgba(248, 245, 238, 0.04)
+  );
+}
+
+.scrollDot {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 999px;
+
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(232, 190, 92, 0.9);
+
+  transform: translateX(-50%);
+}
+
+@media (max-width: 1024px) {
+  .stage {
+    min-height: 620px;
+  }
+
+  .content {
+    gap: var(--space-sm);
+    padding-top: 6.5rem;
+    padding-bottom: 10vh;
+  }
+
+  .heading {
+    max-width: 13ch;
+    font-size: clamp(2.8rem, 6vw + 0.6rem, 5rem);
+  }
+
+  .buttonRow {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 640px) {
+  .stage {
+    height: 100svh;
+    min-height: 620px;
+  }
+
+  .content {
+    justify-content: flex-end;
+
+    gap: 0.85rem;
+
+    padding-top: 6rem;
+    padding-bottom: 8.5rem;
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+  }
+
+  .heading {
+    max-width: 11ch;
+
+    font-size: clamp(2.55rem, 11vw, 4rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+  }
+
+  .supporting {
+    max-width: 36ch;
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+
+  .buttonRow {
+    width: 100%;
+    gap: 0.55rem;
+  }
+
+  .buttonRow > * {
+    flex-grow: 0;
+  }
+
+  .scrollIndicator {
+    bottom: 1rem;
+    font-size: 0.62rem;
+  }
+
+  .scrollLine {
+    height: 28px;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 641px) {
+  .content {
+    padding-top: 5.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .heading {
+    font-size: clamp(2.8rem, 6.5vw, 5rem);
+  }
+
+  .supporting {
+    line-height: 1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .supporting,
+  .buttonRow > *,
+  .scrollIndicator,
+  .heading :global(.word-inner) {
+    opacity: 1;
+    transform: none;
+  }
+}

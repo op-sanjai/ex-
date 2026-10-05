@@ -1,0 +1,812 @@
+/* =========================================================
+   TRIP CATEGORIES
+   Cinematic 3D Collection Surfer
+========================================================= */
+
+.section {
+  position: relative;
+  width: 100%;
+  background: var(--black);
+  color: var(--off-white);
+  overflow-x: clip;
+  isolation: isolate;
+}
+
+/* =========================================================
+   PINNED VIEWPORT
+========================================================= */
+
+.sticky {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+  background: var(--black);
+}
+
+/* =========================================================
+   3D SCENE
+========================================================= */
+
+.scene {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  perspective: var(--scene-perspective, 2100px);
+
+  perspective-origin: 62% 42%;
+
+  transform-style: preserve-3d;
+
+  background:
+    radial-gradient(
+      circle at 58% 46%,
+      rgba(255, 255, 255, 0.035),
+      transparent 38%
+    ),
+    var(--black);
+}
+
+/* =========================================================
+   CINEMATIC VIGNETTE
+========================================================= */
+
+.vignette {
+  position: absolute;
+  inset: 0;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.18) 65%,
+    rgba(0, 0, 0, 0.68) 100%
+  );
+}
+
+/* =========================================================
+   TRACK
+========================================================= */
+
+.track {
+  position: relative;
+
+  width: 0;
+  height: 0;
+
+  transform-style: preserve-3d;
+
+  will-change: transform;
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card {
+  --card-w: 320px;
+  --card-h: 430px;
+
+  position: absolute;
+
+  top: calc(var(--card-h) / -2);
+
+  left: calc(var(--card-w) / -2);
+
+  width: var(--card-w);
+  height: var(--card-h);
+
+  transform-style: preserve-3d;
+
+  will-change: transform, opacity;
+
+  backface-visibility: hidden;
+}
+
+/* =========================================================
+   CARD INNER
+========================================================= */
+
+.cardInner {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background: var(--charcoal);
+
+  color: inherit;
+  text-decoration: none;
+
+  transform-origin: center center;
+
+  box-shadow:
+    0 45px 100px rgba(0, 0, 0, 0.58),
+    0 12px 35px rgba(0, 0, 0, 0.25);
+
+  will-change: transform;
+
+  backface-visibility: hidden;
+}
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.cardMedia {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  overflow: hidden;
+
+  background: var(--charcoal);
+}
+
+.cardMedia img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transform: scale(1.045);
+
+  transform-origin: center center;
+
+  transition:
+    filter 700ms var(--ease-soft, ease),
+    transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================
+   CARD SHADE
+========================================================= */
+
+.cardShade {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    transparent 32%,
+    rgba(0, 0, 0, 0.1) 48%,
+    rgba(0, 0, 0, 0.88) 100%
+  );
+}
+
+/* =========================================================
+   CARD INDEX
+========================================================= */
+
+.cardIndex {
+  position: absolute;
+
+  top: 1.1rem;
+  left: 1.15rem;
+
+  z-index: 3;
+
+  font-family: var(--font-display);
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.24em;
+
+  color: rgba(245, 245, 242, 0.7);
+
+  transition: color 400ms ease;
+}
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.cardTitle {
+  position: absolute;
+
+  right: 1.15rem;
+  bottom: 1.1rem;
+  left: 1.15rem;
+
+  z-index: 3;
+
+  display: block;
+
+  font-family: var(--font-display);
+
+  font-size: 1.45rem;
+
+  line-height: 1;
+
+  letter-spacing: -0.035em;
+
+  color: var(--off-white);
+}
+
+/* =========================================================
+   CARD ARROW
+========================================================= */
+
+.cardArrow {
+  position: absolute;
+
+  right: 1.15rem;
+  top: 1.05rem;
+
+  z-index: 3;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  border: 1px solid rgba(245, 245, 242, 0.3);
+
+  border-radius: 50%;
+
+  font-size: 0.75rem;
+
+  opacity: 0;
+
+  transform: translate(-5px, 5px);
+
+  transition:
+    opacity 450ms ease,
+    transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+@media (hover: hover) and (pointer: fine) {
+  .cardInner:hover .cardMedia img {
+    filter: brightness(1) saturate(1);
+
+    transform: scale(1.075);
+  }
+
+  .cardInner:hover .cardArrow {
+    opacity: 1;
+
+    transform: translate(0, 0);
+  }
+
+  .cardInner:hover .cardIndex {
+    color: var(--off-white);
+  }
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 10;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, auto);
+
+  grid-template-rows: auto 1fr auto;
+
+  padding: clamp(1.5rem, 3.4vw, 3.75rem);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.heading {
+  grid-column: 1;
+  grid-row: 1;
+
+  max-width: 34rem;
+
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: block;
+
+  margin-bottom: 1.15rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.28em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-400);
+}
+
+.title {
+  margin: 0;
+
+  font-family: var(--font-display);
+
+  font-size: clamp(2.5rem, 5vw, 5.4rem);
+
+  font-weight: 400;
+
+  line-height: 0.88;
+
+  letter-spacing: -0.055em;
+
+  color: var(--off-white);
+}
+
+.count {
+  margin-left: 0.5rem;
+
+  font-family: var(--font-body);
+
+  font-size: 0.22em;
+
+  letter-spacing: 0.08em;
+
+  vertical-align: super;
+
+  color: var(--grey-400);
+}
+
+.lede {
+  width: min(29rem, 100%);
+
+  margin: 1.45rem 0 0;
+
+  font-size: 0.96rem;
+
+  line-height: 1.65;
+
+  color: var(--grey-300);
+}
+
+/* =========================================================
+   READOUT
+========================================================= */
+
+.readout {
+  grid-column: 1;
+  grid-row: 3;
+
+  align-self: end;
+
+  width: min(28rem, 100%);
+
+  pointer-events: none;
+
+  animation: readoutIn 520ms var(--ease-soft, ease) both;
+}
+
+@keyframes readoutIn {
+  from {
+    opacity: 0;
+
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.readoutIndex {
+  display: block;
+
+  margin-bottom: 0.7rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.67rem;
+
+  letter-spacing: 0.23em;
+
+  color: var(--grey-400);
+}
+
+.readoutTitle {
+  margin: 0 0 0.55rem;
+
+  font-family: var(--font-display);
+
+  font-size: clamp(1.7rem, 2.8vw, 2.65rem);
+
+  font-weight: 400;
+
+  line-height: 1;
+
+  letter-spacing: -0.045em;
+
+  color: var(--off-white);
+}
+
+.readoutDesc {
+  margin: 0;
+
+  max-width: 26rem;
+
+  font-size: 0.9rem;
+
+  line-height: 1.6;
+
+  color: var(--grey-300);
+}
+
+/* =========================================================
+   HINT
+========================================================= */
+
+.hint {
+  grid-column: 2;
+  grid-row: 3;
+
+  align-self: end;
+  justify-self: end;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.85rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.64rem;
+
+  letter-spacing: 0.24em;
+
+  text-transform: uppercase;
+
+  color: var(--grey-400);
+}
+
+.hintLine {
+  width: clamp(2.5rem, 6vw, 5rem);
+
+  height: 1px;
+
+  background: var(--grey-600);
+}
+
+/* =========================================================
+   PROGRESS RAIL
+========================================================= */
+
+.progressRail {
+  position: absolute;
+
+  right: clamp(1.5rem, 3.4vw, 3.75rem);
+
+  bottom: clamp(1.5rem, 3.4vw, 3.75rem);
+
+  width: clamp(5rem, 10vw, 9rem);
+
+  height: 1px;
+
+  overflow: hidden;
+
+  background: rgba(245, 245, 242, 0.18);
+}
+
+.progressRail span {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  transform-origin: left center;
+
+  background: var(--off-white);
+}
+
+/* =========================================================
+   STATIC FALLBACK
+========================================================= */
+
+.staticPad {
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+
+.staticGrid {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+
+  gap: clamp(1rem, 2vw, 1.6rem);
+
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.staticCard {
+  position: relative;
+
+  display: block;
+
+  aspect-ratio: 3 / 4;
+
+  overflow: hidden;
+
+  background: var(--charcoal);
+
+  color: inherit;
+
+  text-decoration: none;
+}
+
+.staticMedia {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+}
+
+.staticMedia img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  filter: brightness(0.72);
+
+  transition:
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 500ms ease;
+}
+
+.staticCard::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    to top,
+    rgba(5, 5, 5, 0.84) 0%,
+    rgba(5, 5, 5, 0.18) 48%,
+    transparent 78%
+  );
+}
+
+.staticBody {
+  position: absolute;
+
+  right: 1.1rem;
+  bottom: 1rem;
+  left: 1.1rem;
+
+  z-index: 2;
+
+  display: block;
+}
+
+.staticIndex {
+  display: block;
+
+  margin-bottom: 0.5rem;
+
+  font-family: var(--font-display);
+
+  font-size: 0.62rem;
+
+  letter-spacing: 0.22em;
+
+  color: var(--grey-400);
+}
+
+.staticTitle {
+  display: block;
+
+  margin-bottom: 0.35rem;
+
+  font-family: var(--font-display);
+
+  font-size: 1.25rem;
+
+  line-height: 1.15;
+
+  letter-spacing: -0.025em;
+
+  color: var(--off-white);
+}
+
+.staticDesc {
+  display: block;
+
+  font-size: 0.85rem;
+
+  line-height: 1.55;
+
+  color: var(--grey-300);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .staticCard:hover .staticMedia img {
+    transform: scale(1.06);
+
+    filter: brightness(0.92);
+  }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+  .scene {
+    perspective-origin: 58% 44%;
+  }
+
+  .card {
+    --card-w: 270px;
+    --card-h: 365px;
+  }
+
+  .cardTitle {
+    font-size: 1.2rem;
+  }
+
+  .lede {
+    width: min(23rem, 100%);
+
+    font-size: 0.92rem;
+  }
+
+  .readout {
+    width: min(23rem, 100%);
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 640px) {
+  .sticky {
+    min-height: 560px;
+  }
+
+  .scene {
+    perspective-origin: 50% 46%;
+  }
+
+  .card {
+    --card-w: 190px;
+    --card-h: 260px;
+  }
+
+  .cardIndex {
+    top: 0.7rem;
+    left: 0.8rem;
+
+    font-size: 0.58rem;
+  }
+
+  .cardTitle {
+    right: 0.8rem;
+    bottom: 0.75rem;
+    left: 0.8rem;
+
+    font-size: 0.95rem;
+  }
+
+  .cardArrow {
+    right: 0.7rem;
+    top: 0.7rem;
+
+    width: 23px;
+    height: 23px;
+
+    font-size: 0.65rem;
+  }
+
+  .overlay {
+    grid-template-columns: minmax(0, 1fr);
+
+    padding: 1.25rem;
+  }
+
+  .title {
+    font-size: 2.05rem;
+  }
+
+  .overlay .lede {
+    display: none;
+  }
+
+  .readout,
+  .hint {
+    grid-column: 1;
+  }
+
+  .readout {
+    width: 100%;
+
+    padding-bottom: 2.5rem;
+  }
+
+  .readoutTitle {
+    font-size: 1.5rem;
+  }
+
+  .readoutDesc {
+    font-size: 0.84rem;
+
+    max-width: 19rem;
+  }
+
+  .hint {
+    justify-self: start;
+
+    align-self: end;
+
+    font-size: 0.58rem;
+  }
+
+  .progressRail {
+    right: 1.25rem;
+    bottom: 1.25rem;
+
+    width: 4rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cardInner,
+  .cardMedia img {
+    will-change: auto;
+  }
+
+  .readout {
+    animation: none;
+  }
+
+  .cardMedia img,
+  .staticMedia img {
+    transition: none;
+  }
+}
