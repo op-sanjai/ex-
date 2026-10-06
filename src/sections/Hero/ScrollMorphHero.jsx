@@ -197,7 +197,8 @@ export default function ScrollMorphHero() {
         x: gsap.quickSetter(card, "x", "px"),
         y: gsap.quickSetter(card, "y", "px"),
         rot: gsap.quickSetter(card, "rotation", "deg"),
-        scale: gsap.quickSetter(card, "scale"),
+        scaleX: gsap.quickSetter(card, "scaleX"),
+        scaleY: gsap.quickSetter(card, "scaleY"),
         opacity: gsap.quickSetter(card, "opacity"),
       }));
 
@@ -319,7 +320,8 @@ export default function ScrollMorphHero() {
           setters[i].x(x);
           setters[i].y(y);
           setters[i].rot(rot);
-          setters[i].scale(scale);
+          setters[i].scaleX(scale);
+          setters[i].scaleY(scale);
           setters[i].opacity(opacity);
         }
 
