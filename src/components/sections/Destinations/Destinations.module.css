@@ -325,11 +325,11 @@
    flattens into a readable grid and every card keeps its CTA.
 ========================================================= */
 
-@media (max-width: 768px), (hover: none), (pointer: coarse) {
+@media (max-width: 1024px), (hover: none), (pointer: coarse) {
   .stage {
     display: grid;
 
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
 
     gap: clamp(1rem, 3vw, 1.75rem);
 
@@ -350,6 +350,9 @@
     position: static;
 
     width: auto;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 
     touch-action: auto;
 
@@ -361,7 +364,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .stage {
     max-width: var(--container-max);
 
