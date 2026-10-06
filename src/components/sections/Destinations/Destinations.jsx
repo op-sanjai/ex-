@@ -268,6 +268,7 @@ export default function Destinations() {
                   href="#packages"
                   icon={ArrowRight}
                   iconPosition="right"
+                  className={styles.exploreButton}
                   onClick={(event) => handleExploreClick(event, lenis)}
                 >
                   Explore {destination.name}
