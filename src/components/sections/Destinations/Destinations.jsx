@@ -51,7 +51,7 @@ const TILT_RANGE = 300;
  * swallows the vertical swipe the page needs to scroll — so coarse pointers
  * get a plain readable grid instead, with every card and CTA intact.
  */
-const DRAGGABLE = "(min-width: 769px) and (hover: hover) and (pointer: fine)";
+const DRAGGABLE = "(min-width: 1025px) and (hover: hover) and (pointer: fine)";
 
 const BREAKPOINTS = { drag: DRAGGABLE, base: "(min-width: 1px)" };
 
