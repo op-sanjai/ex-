@@ -171,7 +171,7 @@ export default function FinalCTA() {
               <label className={styles.label} htmlFor="cta-mobile">
                 Mobile number
               </label>
-              <input id="cta-mobile" className={styles.input} type="tel" required value={form.mobile} onChange={updateField('mobile')} placeholder="+91 90000 00000" />
+              <input id="cta-mobile" className={styles.input} type="tel" required value={form.mobile} onChange={updateField('mobile')} placeholder="+91 9345916715" />
             </div>
             <div className={styles.field}>
               <label className={styles.label} htmlFor="cta-whatsapp">
