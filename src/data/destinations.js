@@ -1,4 +1,4 @@
-import munnarImage from "../assets/images/destinations/munnar-collage.png";
+import munnarImage from "../assets/hero-gallery/munnar-tea-valley-sm.webp";
 
 export const destinations = [
   {
