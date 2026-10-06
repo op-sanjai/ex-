@@ -20,8 +20,8 @@ export const company = {
   },
 
   contact: {
-    phone: '+91 90000 00000', // PLACEHOLDER — verified business number pending
-    whatsappNumber: '919000000000', // PLACEHOLDER — digits only, country code first
+    phone: '+91 9345916715', // PLACEHOLDER — verified business number pending
+  whatsappNumber: '919345916715',
     email: 'hello@explorekeyholidays.com', // PLACEHOLDER
     address: {
       line1: 'ExploreKey Holidays', // PLACEHOLDER
